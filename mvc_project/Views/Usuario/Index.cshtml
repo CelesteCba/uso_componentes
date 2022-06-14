@@ -2,14 +2,14 @@
     ViewData["Title"] = "Usuarios";
     Layout = "_Layout";
 }
-<button class= "btn btn-primary" onclick="nuevoUsuario">Nuevo usuario</button>
+<button class= "btn btn-primary" onclick="nuevoUsuario()">Nuevo usuario</button>
 <br>
 <br>
 <br>
 <div class="row">
     <table width="100%" 
             class="table" 
-            id="example" 
+            id="grid_usuarios" 
             style="table-layout: fixed; word-break: break-word !important;">
         <thead class="thead-default">
             <tr>
@@ -102,10 +102,15 @@
         
         createGrid(
             'grid_usuarios', 
-            'Usuario/ListarUsuarios', 
+            'Usuario/Listar', 
             'usuarios', 
             columns, 
             null, 
             true);
     });
+
+    function nuevoUsuario()
+    {
+        window.location= urlContent + "Usuario/Nuevo";
+    }
 </script>

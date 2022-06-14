@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using mvc_project.Models;
 using mvc_project.Models.Common;
 using mvc_project.Models.Login;
+using mvc_project.Models.Usuario;
 
 namespace mvc_project.Controllers
 {
@@ -20,8 +21,7 @@ namespace mvc_project.Controllers
 
         public IActionResult Index()
         {
-            LoginModel loginModel = HttpContext.Session.Get<LoginModel>(
-                                "UsuarioLogueado");
+            LoginModel loginModel = HttpContext.Session.Get<LoginModel>("UsuarioLogueado");
 
             if(loginModel == null)
             {
@@ -31,10 +31,32 @@ namespace mvc_project.Controllers
             return View();
         }
 
-        [HttpPost]
-        public JsonResult ListarUsuarios(QueryGridModel queryGridModel)
+        public IActionResult Nuevo()
         {
-            List<object> list =  HttpContext.Session.Get<List<object>>("ListarUsuarios");
+            LoginModel loginModel = HttpContext.Session.Get<LoginModel>("UsuarioLogueado");
+
+            if(loginModel == null)
+            {
+                return Redirect("~/Home/Index");
+            }
+
+            UsuarioViewModel usuarioViewModel = new UsuarioViewModel
+            {
+                apellidoPersona = "",
+                id = 0,
+                nombrePersona = "",
+                nombreUsuario = "",
+                accion = CodigosAccion.Nuevo
+
+            };
+
+            return View("~/Views/Usuario/Usuario.cshtml",usuarioViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult Listar(QueryGridModel queryGridModel)
+        {
+            List<object> list =  HttpContext.Session.Get<List<object>>("ListaUsuarios");
 
             if (list==null)
             {
@@ -52,5 +74,29 @@ namespace mvc_project.Controllers
                 data = list
             }));
         }
+         [HttpPost]
+        public JsonResult Guardar(UsuarioModel usuarioModel)
+        {
+           LoginModel loginModel = HttpContext.Session.Get<LoginModel>("UsuarioLogueado");
+
+            if(loginModel == null)
+            {
+                return Json (Models.Common.JsonReturn.Redirect("Home/Index"));
+            }
+            List<object> list =  HttpContext.Session.Get<List<object>>("ListaUsuarios");
+
+            if ( list == null)
+            {
+                list = new List<object> ();
+            }
+
+            list.Add(usuarioModel);
+
+            HttpContext.Session.Set<List<object>>("ListaUsuarios",list);
+
+            return Json(JsonReturn.SuccessWithoutInnerObject());
+            
+        }
+    
     }
 }
