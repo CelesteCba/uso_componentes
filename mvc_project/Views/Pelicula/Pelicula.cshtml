@@ -1,0 +1,57 @@
+﻿@model mvc_project.Models.Pelicula.PeliculaViewModel
+
+@{
+    ViewData["Title"] = "Peliculas";
+    Layout = "_Layout";
+}
+<input type="hidden" id="txt_id_pelicula" value="@Model.id">
+
+<div class="row justify-content-around">
+    <div class="cd-xs-12 col-sm-12 col-md-6 col-log-6">
+        <div class="row pb-3">
+            <div class="col-md-12 pl-0 pr-0">
+                <input class="form-control"
+                id="txt_nombre_pelicula"
+                placeholder="Nombre"
+                type="text"
+                value="@Model.nombrePelicula"/>
+            </div>
+        </div>
+        <div class="row pb-3">
+            <div class="col-md-12 pl-0 pr-0">
+                <input class="form-control"
+                id="txt_descripcion_pelicula"
+                placeholder="Descripcion"
+                type="text"
+                value="@Model.descripcionPelicula"/>
+            </div>
+        </div>
+                <div class="row pb-3">
+            <div class="col-md-12 pl-0 pr-0">
+                <input class="form-control"
+                id="txt_imagen_pelicula"
+                placeholder="Imagen"
+                type="text"
+                value="@Model.imagenPelicula"/>
+            </div>
+        </div>
+        <div class="row pb-3">
+            <div class="col-md-12 pl-0 pr-0">
+                <input class="form-control"
+                id="txt_duracion_pelicula"
+                placeholder="Duracion"
+                type="text"
+                 value="@Model.duracionPelicula"/>
+            </div>
+        </div>
+        <div class="row pb-3">
+            <div class="col-md-12 pl-0 pr-0">
+                <input class="form-control"
+                id="txt_año_pelicula"
+                placeholder="Año"
+                type="text"
+                 value="@Model.añoPelicula"/>
+            </div>
+        </div>
+    </div>
+</div>
