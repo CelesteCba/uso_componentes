@@ -9,7 +9,11 @@ namespace mvc_project.Models.Pelicula
 
         public string descripcionPelicula { get; set; }
 
-        public string imagenPelicula { get; set; }
+        public string linkPelicula { get; set; }
+        public string directorPelicula { get; set; }
+        public string generoPelicula { get; set; }
+        public string calificacionPelicula { get; set; }
+        public string vistoPelicula { get; set; }
         
         public string duracionPelicula { get; set; }
         public string añoPelicula { get; set; }

@@ -8,14 +8,18 @@
     <table width="100%" 
             class="table" 
             id="grid_peliculas" 
-            style="table-layout: fixed; word-break: break-word !important;">
+            style="table-layout: fixed; word-break: break-word !important; overflow-x: auto;">
         <thead class="thead-default">
             <tr>
                 <th>Nombre</th>
                 <th>Descripción</th>
-                <th>Imagen</th>
+                <th>Genero</th>
+                <th>Director</th>
+                <th>link</th>
                 <th>Duración</th>
+                <th>Calificaciòn</th>
                 <th>Año</th>
+                <th>Visto</th>
                 <th></th>
             </tr>
         </thead>
@@ -41,8 +45,22 @@
             "orderable": true,
             defaultContent: ""
         }, {
-            "data": "imagenPelicula",
-            "name": "imagenPelicula",
+            "data": "generoPelicula",
+            "name": "generoPelicula",
+            "searchable": true,
+            "visible": true,
+            "orderable": true,
+            defaultContent: ""
+        },{
+            "data": "directorPelicula",
+            "name": "directorPelicula",
+            "searchable": true,
+            "visible": true,
+            "orderable": true,
+            defaultContent: ""
+        },{
+            "data": "linkPelicula",
+            "name": "linkPelicula",
             "searchable": true,
             "visible": true,
             "orderable": true,
@@ -55,8 +73,22 @@
             "orderable": true,
             defaultContent: ""
         },{
+            "data": "calificacionPelicula",
+            "name": "calificacionPelicula",
+            "searchable": true,
+            "visible": true,
+            "orderable": true,
+            defaultContent: ""
+        },{
             "data": "añoPelicula",
             "name": "añoPelicula",
+            "searchable": true,
+            "visible": true,
+            "orderable": true,
+            defaultContent: ""
+        },{
+            "data": "vistoPelicula",
+            "name": "vistoPelicula",
             "searchable": true,
             "visible": true,
             "orderable": true,

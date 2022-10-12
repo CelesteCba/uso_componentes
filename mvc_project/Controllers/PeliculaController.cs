@@ -40,9 +40,13 @@ namespace mvc_project.Controllers
                nombrePelicula = "",
                 id = 0,
                descripcionPelicula = "",
-               imagenPelicula = "",
+               linkPelicula = "",
                duracionPelicula = "",
+               directorPelicula="",
+               generoPelicula="",
                añoPelicula ="",
+               calificacionPelicula="",
+               vistoPelicula="",
                accion = CodigosAccion.Nuevo
 
             };
