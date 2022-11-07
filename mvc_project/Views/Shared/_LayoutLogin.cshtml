@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@ViewData["Title"] - Uso de componentes</title>
+        <title>@ViewData["Title"]</title>
         
         <link rel='stylesheet' href='@Url.Content("~/lib/bootstrap/dist/css/bootstrap.css")' />
         <link rel='stylesheet' href='@Url.Content("~/css/site.css")' />
@@ -29,37 +29,15 @@
         <script src='@Url.Content("~/js/messages.js")'></script>
         <script src='@Url.Content("~/js/site.js")'></script>
     </head>
-    <body>
-        <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Uso de componentes</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
+    <body style="background-color: #66086640;">
         <div class="container">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
+            @RenderBody()
         </div>
-
-        <footer class="border-top footer text-muted">
+        <footer class="border-top footer text-white">
             <div class="container">
-                &copy; 2022 - uso de componentes- MIT Licence
+                &copy; 2022 - CJ CINEMA - MIT Licence
             </div>
-        </footer>
-        
+        </footer>        
         <partial name="_Modal" />
     </body>
     
