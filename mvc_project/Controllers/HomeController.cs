@@ -22,7 +22,8 @@ namespace mvc_project.Controllers
                 new LoginViewModel
             {
                 isLogged = true,
-                message = ""
+                message = "",
+                userName = ""
             };
 
             return View(loginViewModel);
@@ -38,22 +39,34 @@ namespace mvc_project.Controllers
             {
                 loginViewModel.isLogged = false;
                 loginViewModel.message = "Debe ingresar un nombre de usuario o password";
-
+                loginViewModel.userName = string.IsNullOrEmpty(loginModel.userName) ? "" : loginModel.userName;
                 return View("~/Views/Home/Index.cshtml", loginViewModel);
             }
             
-            if(!loginModel.userName.Equals("Admin") ||
-                !loginModel.password.Equals("Admin"))
+            using(dao_library.DAOFactory df = new dao_library.DAOFactory())
             {
-                loginViewModel.isLogged = false;
-                loginViewModel.message = "Nombre de usuario o contraseña incorrecto";
+                entity_library.Estados.EstadoClase activo =
+                    df.DAOEstadoClase.ObtenerEstadoClase(entity_library.Comun.CodigoEstadoClase.Activo);
 
-                return View("~/Views/Home/Index.cshtml", loginViewModel);
+                entity_library.Sistema.Usuario usuario = df.DAOUsuario.ObtenerUsuario(
+                    activo, 
+                    loginModel.userName, 
+                    loginModel.password);
+
+                if(usuario == null)
+                {
+                    loginViewModel.isLogged = false;
+                    loginViewModel.message = "Nombre de usuario o contraseña incorrecto";
+                    loginViewModel.userName = loginModel.userName;
+                    return View("~/Views/Home/Index.cshtml", loginViewModel);
+                }
+
+                loginModel.IdUsuario = usuario.Id;
             }
 
             HttpContext.Session.Set<LoginModel>(
-                                "UsuarioLogueado",
-                                loginModel);
+                "UsuarioLogueado",
+                loginModel);
 
             return Redirect("~/Panel/Index");
         }
