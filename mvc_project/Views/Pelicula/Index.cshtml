@@ -5,87 +5,33 @@
 <button class="btn btn-primary" onclick="nuevaPelicula()">Nueva pelicula</button>
 <br>
 <div class="row">
-    <table class="table" id="grid_peliculas">
-        <thead class="thead-default">
-            <tr>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Genero</th>
-                <th>Director</th>
-                <th>link</th>
-                <th>Duración</th>
-                <th>Calificaciòn</th>
-                <th>Año</th>
-                <th>Visto</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    <div class="col-md-12">
+        <table class="table" id="grid_peliculas">
+            <thead class="thead-default">
+                <tr>
+                    <th>Título</th>
+                    <th>Sinopsis</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script>
     $(document).ready(function () {
         var columns = [{
-            "data": "nombrePelicula",
-            "name": "nombrePelicula",
+            "data": "titulo",
+            "name": "titulo",
             "searchable": true,
             "visible": true,
             "orderable": true,
             defaultContent: ""
         }, {
-            "data": "descripcionPelicula",
-            "name": "descripcionPelicula",
-            "searchable": true,
-            "visible": true,
-            "orderable": true,
-            defaultContent: ""
-        }, {
-            "data": "generoPelicula",
-            "name": "generoPelicula",
-            "searchable": true,
-            "visible": true,
-            "orderable": true,
-            defaultContent: ""
-        },{
-            "data": "directorPelicula",
-            "name": "directorPelicula",
-            "searchable": true,
-            "visible": true,
-            "orderable": true,
-            defaultContent: ""
-        },{
-            "data": "linkPelicula",
-            "name": "linkPelicula",
-            "searchable": true,
-            "visible": true,
-            "orderable": true,
-            defaultContent: ""
-        },{
-            "data": "duracionPelicula",
-            "name": "duracionPelicula",
-            "searchable": true,
-            "visible": true,
-            "orderable": true,
-            defaultContent: ""
-        },{
-            "data": "calificacionPelicula",
-            "name": "calificacionPelicula",
-            "searchable": true,
-            "visible": true,
-            "orderable": true,
-            defaultContent: ""
-        },{
-            "data": "añoPelicula",
-            "name": "añoPelicula",
-            "searchable": true,
-            "visible": true,
-            "orderable": true,
-            defaultContent: ""
-        },{
-            "data": "vistoPelicula",
-            "name": "vistoPelicula",
+            "data": "sinopsis",
+            "name": "sinopsis",
             "searchable": true,
             "visible": true,
             "orderable": true,
