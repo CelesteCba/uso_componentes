@@ -19,12 +19,19 @@ namespace dao_library.Core
 			Map(x => x.Sinopsis)
 				.Column("sinopsis");
 
+			Map(x => x.AnioEstreno)
+				.Column("anio_estreno");
+
+			Map(x => x.Director)
+				.Column("director");
+
 			HasMany(x => x.Elencos)
 				.KeyColumn("id_pelicula")
 				.Where("id_estado_clase=1")
 				.Cascade.All()
 				.LazyLoad();
 
+            References(x => x.Genero, "id_genero");    
 			References(x => x.Imagen, "id_imagen");
 
 		}

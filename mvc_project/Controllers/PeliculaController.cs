@@ -9,6 +9,7 @@ using mvc_project.Models.Login;
 using mvc_project.Models.Pelicula;
 using dao_library.Utils;
 using dao_library;
+using entity_library.Core;
 
 namespace mvc_project.Controllers
 {
@@ -39,21 +40,116 @@ namespace mvc_project.Controllers
 
             PeliculaViewModel peliculaViewModel = new PeliculaViewModel
             {
-               nombrePelicula = "",
                 id = 0,
-               descripcionPelicula = "",
-               linkPelicula = "",
-               duracionPelicula = "",
-               directorPelicula="",
-               generoPelicula="",
-               añoPelicula ="",
-               calificacionPelicula="",
-               vistoPelicula="",
-               accion = CodigosAccion.Nuevo
+                titulo="",
+                sinopsis="",
+                anioEstreno="",
+                director="",
+                genero="",
+                accion = CodigosAccion.Nuevo
 
             };
 
             return View("~/Views/Pelicula/Pelicula.cshtml", peliculaViewModel);
+        }
+         public IActionResult Editar(long idPelicula)
+        {
+            using(DAOFactory df=new DAOFactory())
+            {
+               Pelicula pelicula = df.DAOPelicula.ObtenerPelicula(idPelicula);
+            
+
+                PeliculaViewModel peliculaViewModel = new PeliculaViewModel
+                {
+                    id = pelicula.Id,
+                    titulo=pelicula.Titulo,
+                    sinopsis=pelicula.Sinopsis,
+                    anioEstreno=pelicula.AnioEstreno.ToString(),
+                    director=pelicula.Director,
+                    genero=pelicula.Genero.Descripcion,
+                    accion = CodigosAccion.Editar
+
+                };
+
+                return View("~/Views/Pelicula/Pelicula.cshtml", peliculaViewModel);
+            }
+        }
+         public IActionResult Ver(long idPelicula)
+        {
+            using(DAOFactory df=new DAOFactory())
+            {
+               Pelicula pelicula = df.DAOPelicula.ObtenerPelicula(idPelicula);
+            
+
+                PeliculaViewModel peliculaViewModel = new PeliculaViewModel
+                {
+                    id = pelicula.Id,
+                    titulo=pelicula.Titulo,
+                    sinopsis=pelicula.Sinopsis,
+                    anioEstreno=pelicula.AnioEstreno.ToString(),
+                    director=pelicula.Director,
+                    genero=pelicula.Genero.Descripcion,
+                    accion = CodigosAccion.Ver
+
+                };
+
+                return View("~/Views/Pelicula/Pelicula.cshtml", peliculaViewModel);
+            }
+        }
+        
+        [HttpPost]
+        public JsonResult Eliminar(long id){
+            using(DAOFactory df=new DAOFactory())
+            {
+               Pelicula pelicula = df.DAOPelicula.ObtenerPelicula(id);
+               df.BeginTrans();
+               pelicula.EstadoClase=df.DAOEstadoClase.ObtenerEstadoClase(entity_library.Comun.CodigoEstadoClase.Baja);
+               df.DAOPelicula.Guardar(pelicula);
+               df.Commit();
+               return Json(JsonReturn.SuccessWithoutInnerObject());
+            }
+        }
+         [HttpPost]
+        public JsonResult Guardar(PeliculaModel peliculaModel)
+        {
+            LoginModel loginModel = HttpContext.Session.Get<LoginModel>("UsuarioLogueado");
+
+            if(loginModel == null)
+            {
+                return Json(Models.Common.JsonReturn.Redirect("Home/Index"));
+            }
+
+            try
+            {
+                using (DAOFactory df = new DAOFactory())
+                {
+                    entity_library.Core.Pelicula pelicula = df.DAOPelicula.ObtenerPelicula(peliculaModel.id);
+                    
+                    entity_library.Estados.EstadoClase activo =
+                        df.DAOEstadoClase.ObtenerEstadoClase(entity_library.Comun.CodigoEstadoClase.Activo);
+
+                    if(pelicula == null)
+                    {
+                        pelicula = new entity_library.Core.Pelicula();
+                        pelicula.EstadoClase = activo;
+                    }
+                    pelicula.Titulo = peliculaModel.titulo;
+                    pelicula.Sinopsis = peliculaModel.sinopsis;
+                    pelicula.AnioEstreno = long.Parse(peliculaModel.anioEstreno);
+                    pelicula.Director = peliculaModel.director;
+                    pelicula.Genero = df.DAOGenero.ObtenerGenero(1);
+
+                    df.BeginTrans();
+                    df.DAOPelicula.Guardar(pelicula);
+                    df.Commit();
+
+                    return Json(JsonReturn.SuccessWithoutInnerObject());
+                }
+            }
+            catch (System.Exception)
+            {
+                return Json(JsonReturn.ErrorWithSimpleMessage("Hubo un error"));
+            }
         }
 
         [HttpPost]
@@ -103,7 +199,10 @@ namespace mvc_project.Controllers
                         {
                             id = pelicula.Id,
                             titulo = pelicula.Titulo,
-                            sinopsis = pelicula.Sinopsis
+                            sinopsis = pelicula.Sinopsis,
+                            anioEstreno = pelicula.AnioEstreno.ToString(),
+                            director = pelicula.Director,
+                            genero= pelicula.Genero.Descripcion
                         });
                     }
 
@@ -137,6 +236,22 @@ namespace mvc_project.Controllers
                 NombreAtributo = "Pelicula.Sinopsis",
                 TipoDato = TipoDato.String
             });
+            atributosBusqueda.Add(new AtributoBusqueda
+            {
+                NombreAtributo = "Genero.Descripcion",
+                TipoDato = TipoDato.String
+            });
+            atributosBusqueda.Add(new AtributoBusqueda
+            {
+                NombreAtributo = "Pelicula.AnioEstreno",
+                TipoDato = TipoDato.Int64
+            });
+
+            atributosBusqueda.Add(new AtributoBusqueda
+            {
+                NombreAtributo = "Pelicula.Director",
+                TipoDato = TipoDato.String
+            });
 
             return atributosBusqueda;
         }
@@ -157,6 +272,9 @@ namespace mvc_project.Controllers
                 string col = modeloConsulta.columns[columnIndex].data;
 
                 if (col == "titulo") col = "Pelicula.Titulo";
+                else if(col == "anioEstreno") col = "Pelicula.AnioEstreno";
+                else if(col == "director") col = "Pelicula.Director";
+                else if(col == "genero") col = "Genero.Descripcion";
                 else if(col == "sinopsis") col = "Pelicula.Sinopsis";
                 else col = "Pelicula.Titulo";
 
@@ -171,6 +289,11 @@ namespace mvc_project.Controllers
         private static List<Asociacion> obtenerAsociaciones()
         {
             List<Asociacion> asociaciones = new List<Asociacion>();
+            asociaciones.Add(new Asociacion{
+                Alias="Genero",
+                RutaDeAsociacion="Pelicula.Genero",
+                TipoJoin= TipoJoin.InnerJoin
+            });
 
             return asociaciones;
         }

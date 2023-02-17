@@ -5,19 +5,11 @@ namespace mvc_project.Models.Pelicula
     public class PeliculaViewModel
     {
         public long id { get; set; }
-        public string nombrePelicula { get; set; }
-
-        public string descripcionPelicula { get; set; }
-
-        public string linkPelicula { get; set; }
-        public string directorPelicula { get; set; }
-        public string generoPelicula { get; set; }
-        public string calificacionPelicula { get; set; }
-        public string vistoPelicula { get; set; }
-        
-        public string duracionPelicula { get; set; }
-        public string añoPelicula { get; set; }
-        
+        public string titulo { get; set; }
+        public string sinopsis { get; set; }
+        public string anioEstreno { get; set; }
+        public string director { get; set; }
+        public string genero { get; set; }
         public  CodigosAccion accion { get; set; }
 
       

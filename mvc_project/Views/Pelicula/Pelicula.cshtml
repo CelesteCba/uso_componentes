@@ -1,93 +1,172 @@
 ﻿@model mvc_project.Models.Pelicula.PeliculaViewModel
 
 @{
-    ViewData["Title"] = "Peliculas";
+    if(Model.accion == mvc_project.Models.Common.CodigosAccion.Nuevo)
+    {
+        ViewData["Title"] = "Nueva pelicula";
+    }
+    else if(Model.accion == mvc_project.Models.Common.CodigosAccion.Editar)
+    {
+        ViewData["Title"] = "Editar pelicula";
+    }
+    else if(Model.accion == mvc_project.Models.Common.CodigosAccion.Ver)
+    {
+        ViewData["Title"] = "Ver pelicula";
+    }
+
     Layout = "_Layout";
 }
-<input type="hidden" id="txt_id_pelicula" value="@Model.id">
 
-<div class="row justify-content-around">
-    <div class="cd-xs-12 col-sm-12 col-md-6 col-log-6">
-        <div class="row pb-3">
-            <div class="col-md-12 pl-0 pr-0">
-                <input class="form-control"
-                id="txt_nombre_pelicula"
-                placeholder="Nombre"
-                type="text"
-                value="@Model.nombrePelicula"/>
-            </div>
-        </div>
-        <div class="row pb-3">
-            <div class="col-md-12 pl-0 pr-0">
-                <input class="form-control"
-                id="txt_descripcion_pelicula"
-                placeholder="Descripcion"
-                type="text"
-                value="@Model.descripcionPelicula"/>
-            </div>
-        </div>
-                <div class="row pb-3">
-            <div class="col-md-12 pl-0 pr-0">
-                <input class="form-control"
-                id="txt_link_pelicula"
-                placeholder="link"
-                type="text"
-                value="@Model.linkPelicula"/>
-            </div>
-        </div>
-        <div class="row pb-3">
-            <div class="col-md-12 pl-0 pr-0">
-                <input class="form-control"
-                id="txt_duracion_pelicula"
-                placeholder="Duracion"
-                type="text"
-                 value="@Model.duracionPelicula"/>
-            </div>
-        </div>
-        <div class="row pb-3">
-            <div class="col-md-12 pl-0 pr-0">
-                <input class="form-control"
-                id="txt_año_pelicula"
-                placeholder="Año"
-                type="text"
-                 value="@Model.añoPelicula"/>
-            </div>
-        </div>
-        <div class="row pb-3">
-            <div class="col-md-12 pl-0 pr-0">
-                <input class="form-control"
-                id="txt_visto_pelicula"
-                placeholder="Visto"
-                type="text"
-                 value="@Model.vistoPelicula"/>
-            </div>
-        </div>
-        <div class="row pb-3">
-            <div class="col-md-12 pl-0 pr-0">
-                <input class="form-control"
-                id="txt_genero_pelicula"
-                placeholder="Genero"
-                type="text"
-                 value="@Model.generoPelicula"/>
-            </div>
-        </div>
-        <div class="row pb-3">
-            <div class="col-md-12 pl-0 pr-0">
-                <input class="form-control"
-                id="txt_director_pelicula"
-                placeholder="Director"
-                type="text"
-                 value="@Model.directorPelicula"/>
-            </div>
-        </div>
-        <div class="row pb-3">
-            <div class="col-md-12 pl-0 pr-0">
-                <input class="form-control"
-                id="txt_calificacion_pelicula"
-                placeholder="Calificaciòn"
-                type="text"
-                 value="@Model.calificacionPelicula"/>
-            </div>
+<section class="main-container" >
+    <input type="hidden" id="txt_id_pelicula" value="@Model.id">
+
+    <div class="row justify-content-around" style="text-align: center;margin:40px 0 10px 0">
+        <div class=" col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <h2>@Html.Raw(ViewData["Title"])</h2>
         </div>
     </div>
-</div>
+
+    <div class="row justify-content-around">
+        <div class=" col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="row pb-3">
+                <div class="col-md-12 pl-0 pr-0">
+                    <input  class="form-control"
+                            id="txt_titulo_pelicula"
+                            placeholder="Titulo"
+                            type="text"
+                            value="@Model.titulo"
+                            @(Model.accion == mvc_project.Models.Common.CodigosAccion.Ver ? "disabled" : "") />
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-md-12 pl-0 pr-0">
+                    <input  class="form-control"
+                            id="txt_sinopsis_pelicula"
+                            placeholder="Sinopsis"
+                            type="text"
+                            value="@Model.sinopsis"
+                            @(Model.accion == mvc_project.Models.Common.CodigosAccion.Ver ? "disabled" : "") />
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-md-12 pl-0 pr-0">
+                    <input  class="form-control"
+                            id="txt_anioEstreno_pelicula"
+                            placeholder="Año de estreno"
+                            type="text"
+                            value="@Model.anioEstreno"
+                            @(Model.accion == mvc_project.Models.Common.CodigosAccion.Ver ? "disabled" : "") />
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-md-12 pl-0 pr-0">
+                    <input  class="form-control"
+                            id="txt_director_pelicula"
+                            placeholder="Director"
+                            type="text"
+                            value="@Model.director"
+                            @(Model.accion == mvc_project.Models.Common.CodigosAccion.Ver ? "disabled" : "") />
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-md-12 pl-0 pr-0">
+                    <input  class="form-control"
+                            id="txt_genero_pelicula"
+                            placeholder="Genero"
+                            type="text"
+                            value="@Model.genero"
+                            @(Model.accion == mvc_project.Models.Common.CodigosAccion.Ver ? "disabled" : "") />
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="row justify-content-around" style="text-align: center;">
+        <div class=" col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            @if(Model.accion != mvc_project.Models.Common.CodigosAccion.Ver)
+            {
+                <button class="btn btn-primary" onclick="guardarPelicula()">Guardar</button>
+            }
+            <button class="btn btn-secondary" onclick="cancelar()">Cancelar</button>
+        </div>
+    </div>
+<section class="main-container" >
+
+<script>
+    function cancelar()
+    {
+        msjPregunta("Pregunta", "¿Está seguro que desea cancelar?", function()
+        {
+            window.location = urlContent + "Pelicula/Index";
+        }, function() {
+
+        });
+    }
+
+    function guardarPelicula()
+    {
+        let idPelicula = $("#txt_id_pelicula").val();
+        let titulo = $("#txt_titulo_pelicula").val();
+        let sinopsis = $("#txt_sinopsis_pelicula").val();
+        let anioEstreno = $("#txt_anioEstreno_pelicula").val();
+        let director = $("#txt_director_pelicula").val();
+        let genero = $("#txt_genero_pelicula").val();
+
+        let listadoErrores = "";
+
+        if(titulo == null || titulo == "")
+        {
+            listadoErrores += "- El nombre de la pelicula es obligatorio<br>";
+        }
+
+        if(sinopsis == null || sinopsis == "")
+        {
+            listadoErrores += "- La sinopsis  de la pelicula  es obligatoria<br>";
+        }
+
+        if(anioEstreno == null || anioEstreno == "")
+        {
+            listadoErrores += "- El año de estreno es obligatorio<br>";
+        }
+
+        if(director == null || director == "")
+        {
+            listadoErrores += "- El director es obligatorio<br>";
+        }
+
+        if(genero == null || genero == "")
+        {
+            listadoErrores += "- El genero es obligatorio<br>";
+        }
+
+
+        if(listadoErrores != "")
+        {
+            msjError("Error", listadoErrores);
+            return;
+        }
+
+        let data = {
+            id: idPelicula,
+            titulo: titulo,
+            sinopsis: sinopsis,
+            anioEstreno: anioEstreno,
+            director : director,
+            genero : genero
+        };
+
+        ajax(
+            "post", 
+            "Pelicula/Guardar", 
+            data, 
+            "Guardando...", 
+            "Espere por favor...", 
+            function(response){
+                msjSuccess("Éxito", "La pelicula se guardó correctamente", function(){
+                    window.location = urlContent + "Pelicula/Index";
+                });
+            }, null);
+    }
+</script>

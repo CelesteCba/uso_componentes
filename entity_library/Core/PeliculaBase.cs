@@ -43,6 +43,30 @@ namespace entity_library.Core
 			set { sinopsis = value; }
 		}
 		#endregion
+		#region genero
+		private Genero genero;
+		public virtual Genero Genero
+		{
+			get { return genero; }
+			set { genero = value; }
+		}
+		#endregion
+		#region anioEstreno
+		private System.Int64 anioEstreno;
+		public virtual System.Int64 AnioEstreno
+		{
+			get { return anioEstreno; }
+			set { anioEstreno = value; }
+		}
+		#endregion
+		#region director
+		private System.String director;
+		public virtual System.String Director
+		{
+			get { return director; }
+			set { director = value; }
+		}
+		#endregion
 
 		#region elencos
 		private IList<entity_library.Core.Elenco> elencos;
