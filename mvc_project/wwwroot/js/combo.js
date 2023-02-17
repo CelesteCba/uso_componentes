@@ -18,7 +18,7 @@ En caso contrario, consulte http://www.gnu.org/licenses/gpl-3.0.html
 *********************************************************************************/
 
 function createCombo(id, url) {
-    $("#" + id).select2({
+    jQuery("#" + id).select2({
         placeholder: "Buscar..",
         ajax: {
             processResults: function (data) {
@@ -36,7 +36,7 @@ function createCombo(id, url) {
                     query: query
                 };
 
-                var request = $.ajax({
+                var request = jQuery.ajax({
                     type: 'POST',
                     url: urlContent + url,
                     data: data
@@ -52,7 +52,7 @@ function createCombo(id, url) {
 }
 
 function createAutocomplete(id, url, jsonData) {
-    $("#" + id).select2({
+    jQuery("#" + id).select2({
         placeholder: "Buscar..",
         ajax: {
             processResults: function (data) {
@@ -84,7 +84,7 @@ function createAutocomplete(id, url, jsonData) {
 
                 jsonData['request'] = request;
                 
-                var request = $.ajax({
+                var request = jQuery.ajax({
                     type: 'POST',
                     url: urlContent + url,
                     data: jsonData

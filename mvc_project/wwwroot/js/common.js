@@ -54,10 +54,10 @@ function checkNum(event) {
 }
 
 function irA(idElemento) {
-    if ($(`#${idElemento}`).length > 0) {
-        $("body,html").animate(
+    if (jQuery(`#${idElemento}`).length > 0) {
+        jQuery("body,html").animate(
             {
-                scrollTop: $(`#${idElemento}`).offset().top
+                scrollTop: jQuery(`#${idElemento}`).offset().top
             },
             800) //speed
     } else {

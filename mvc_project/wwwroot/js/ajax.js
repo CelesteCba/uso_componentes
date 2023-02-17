@@ -27,7 +27,7 @@ function ajax(
     
     ajaxShowBack(msgAjax, msgProgress);
     
-    $.ajax({
+    jQuery.ajax({
         type: type,
         url: urlContent + url,
         data: jsonData,

@@ -18,7 +18,7 @@ En caso contrario, consulte http://www.gnu.org/licenses/gpl-3.0.html
 *********************************************************************************/
 
 function createGrid(id, url, entityName, columns, filterFunction, query) {
-    $("#" + id).on('error.dt', function (e, settings, techNote, message) {
+    jQuery("#" + id).on('error.dt', function (e, settings, techNote, message) {
         console.log(message);
         msjError("Error", "Se generó un error mientras intentabamos listar las/os " + entityName + ".");
     }).DataTable({
@@ -109,7 +109,7 @@ function createGrid(id, url, entityName, columns, filterFunction, query) {
                 if (filterFunction != null) {
                     extraParams = funcionFiltro();
                 }
-                return $.extend({}, d, extraParams);
+                return jQuery.extend({}, d, extraParams);
             }
         },
         "columns": columns
@@ -118,8 +118,8 @@ function createGrid(id, url, entityName, columns, filterFunction, query) {
 
 function reloadGrid(id, reload = false) {
     if (reload) {
-        $("#" + id).DataTable().ajax.reload(null, false);
+        jQuery("#" + id).DataTable().ajax.reload(null, false);
     } else {
-        $("#" + id).DataTable().page(0).draw();
+        jQuery("#" + id).DataTable().page(0).draw();
     }
 }
